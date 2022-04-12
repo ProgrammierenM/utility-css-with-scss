@@ -1,0 +1,109 @@
+/* Spacing Classes */
+$spacing-property-map: (
+  "p": padding,
+  "pt": padding-top,
+  "pb": padding-bottom,
+  "pl": padding-left,
+  "pr": padding-right,
+  "px": (
+    padding-left,
+    padding-right,
+  ),
+  "py": (
+    padding-top,
+    padding-bottom,
+  ),
+  "m": margin,
+  "mt": margin-top,
+  "mb": margin-bottom,
+  "ml": margin-left,
+  "mr": margin-right,
+  "mx": (
+    margin-left,
+    margin-right,
+  ),
+  "my": (
+    margin-top,
+    margin-bottom,
+  ),
+);
+$spacing-sizes: 0, 8, 16, 24, 32, 40, 48, 56, 64;
+$spacing-unit: "px";
+
+@each $class, $value in $spacing-property-map {
+  @each $size in $spacing-sizes {
+    .#{$class}-#{$size} {
+      @each $subvalue in $value {
+        #{$subvalue}: #{$size}#{$spacing-unit};
+      }
+    }
+  }
+}
+
+/* Color Classes */
+$color-map: (
+  "green-100": #c8e6c9,
+  "green-200": #a5d6a7,
+  "green-300": #81c784,
+  "green-400": #66bb6a,
+  "green-500": #4caf50,
+  "green-600": #43a047,
+  "green-700": #388e3c,
+  "green-800": #2e7d32,
+  "green-900": #1b5e20,
+);
+
+@mixin color-utilities($property: "color") {
+  @each $name, $hex in $color-map {
+    &-#{$name} {
+      #{$property}: #{$hex};
+    }
+  }
+}
+
+.text {
+  @include color-utilities();
+}
+
+.background {
+  @include color-utilities(background-color);
+}
+
+.border {
+  @include color-utilities(border-color);
+}
+
+/* Grid Classes */
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+$grid-steps: 12;
+$grid-unit: "%";
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@for $i from 1 through $grid-steps {
+  .col-#{$i} {
+    flex: 0 0 auto;
+    width: #{calc($i / $grid-steps * 100)}#{$grid-unit};
+  }
+}
+
+@each $key, $breakpoint in $breakpoints {
+  @media (min-width: $breakpoint) {
+    @for $i from 1 through $grid-steps {
+      .col-#{$key}-#{$i} {
+        flex: 0 0 auto;
+        width: #{calc($i / $grid-steps * 100)}#{$grid-unit};
+      }
+    }
+  }
+}

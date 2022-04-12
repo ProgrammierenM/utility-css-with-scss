@@ -1,0 +1,15 @@
+{
+  "name": "utility-css-with-scss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass-dev": "sass --watch --style=expanded assets/scss:assets/css",
+    "sass-prod": "sass --no-source-map --style=compressed assets/scss:assets/css"
+  },
+  "author": "Mario",
+  "license": "MIT",
+  "devDependencies": {
+    "sass": "^1.49.9"
+  }
+}
